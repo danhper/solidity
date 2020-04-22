@@ -154,6 +154,40 @@ public:
 			_expression
 		);
 	}
+
+	static std::string gasUpdate(langutil::SourceLocation const& _location)
+	{
+		// dot, "gas", any number of whitespaces, left bracket
+		std::regex gasReg{"\\.gas\\s*\\("};
+
+		if (regex_search(_location.text(), gasReg))
+		{
+			std::string out = regex_replace(
+				_location.text(),
+				gasReg,
+				"{gas: ",
+				std::regex_constants::format_first_only
+			);
+			return regex_replace(out, std::regex{"\\)$"}, "}");
+		}
+
+		return _location.text();
+	}
+
+	static std::string valueUpdate(langutil::SourceLocation const& _location)
+	{
+		// dot, "value", any number of whitespaces, left bracket
+		std::regex valueReg{"\\.value\\s*\\("};
+
+		if (regex_search(_location.text(), valueReg))
+		{
+			std::string out
+				= regex_replace(_location.text(), valueReg, "{value: ", std::regex_constants::format_first_only);
+			return regex_replace(out, std::regex{"\\)$"}, "}");
+		}
+
+		return _location.text();
+	}
 };
 
 }
