@@ -50,6 +50,7 @@ public:
 	static EVMVersion petersburg() { return {Version::Petersburg}; }
 	static EVMVersion istanbul() { return {Version::Istanbul}; }
 	static EVMVersion berlin() { return {Version::Berlin}; }
+	static EVMVersion txchain() { return {Version::TxChain}; }
 
 	static std::optional<EVMVersion> fromString(std::string const& _version)
 	{
@@ -74,6 +75,7 @@ public:
 		case Version::Petersburg: return "petersburg";
 		case Version::Istanbul: return "istanbul";
 		case Version::Berlin: return "berlin";
+		case Version::TxChain: return "txchain";
 		}
 		return "INVALID";
 	}
@@ -86,6 +88,7 @@ public:
 	bool hasExtCodeHash() const { return *this >= constantinople(); }
 	bool hasChainID() const { return *this >= istanbul(); }
 	bool hasSelfBalance() const { return *this >= istanbul(); }
+	bool hasTxExists() const { return *this >= txchain(); }
 
 	bool hasOpcode(evmasm::Instruction _opcode) const;
 
@@ -94,7 +97,7 @@ public:
 	bool canOverchargeGasForCall() const { return *this >= tangerineWhistle(); }
 
 private:
-	enum class Version { Homestead, TangerineWhistle, SpuriousDragon, Byzantium, Constantinople, Petersburg, Istanbul, Berlin };
+	enum class Version { Homestead, TangerineWhistle, SpuriousDragon, Byzantium, Constantinople, Petersburg, Istanbul, Berlin, TxChain };
 
 	EVMVersion(Version _version): m_version(_version) {}
 

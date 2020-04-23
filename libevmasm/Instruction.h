@@ -87,6 +87,7 @@ enum class Instruction: uint8_t
 	GASLIMIT,			///< get the block's gas limit
 	CHAINID,			///< get the config's chainid param
 	SELFBALANCE,		///< get balance of the current account
+	TXEXISTS,           ///< returns true if the transaction id exists
 
 	POP = 0x50,			///< remove item from stack
 	MLOAD,				///< load word from memory

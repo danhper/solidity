@@ -572,6 +572,10 @@ bool AsmAnalyzer::warnOnInstructions(evmasm::Instruction _instr, SourceLocation 
 	{
 		errorForVM("only available for Istanbul-compatible");
 	}
+	else if (_instr == evmasm::Instruction::TXEXISTS && !m_evmVersion.hasTxExists())
+	{
+		errorForVM("only available for TxChain-compatible");
+	}
 	else if (
 		_instr == evmasm::Instruction::JUMP ||
 		_instr == evmasm::Instruction::JUMPI ||
